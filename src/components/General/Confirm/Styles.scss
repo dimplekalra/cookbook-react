@@ -1,0 +1,49 @@
+@import "../../../assets/styles/global.scss";
+
+.inplace-confirm{
+  display: inline-block;
+  .main-body {
+    text-align: center;
+    color: $black;
+    font-size: 25px;
+    position: absolute;
+    box-shadow: 0px 1px 6px 2px #e6e6e6;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    transition: all 0.3s linear;
+    background: $white;
+    z-index: 1;
+    height: 150px;
+    margin: auto;
+    padding: 25px;
+    display: inline-block;
+    width: 100%;
+    button {
+      padding: 5px 43px;
+      width: auto;
+      height: auto;
+      font-size: 17px;
+      border-radius: 30px;
+      margin-left: 15px;
+      margin-top: 10px;
+      font-weight: 400;
+      color: $white;
+      border: none;
+      &:first-child{
+        background: $yellow;
+      }
+      &:last-child{
+        background: $black;
+      }
+    }
+  }
+}
+
+  
+  @media only screen and (min-width: 767px) {
+    .inplace-confirm .main-body{
+      width:60%;
+    }
+  }

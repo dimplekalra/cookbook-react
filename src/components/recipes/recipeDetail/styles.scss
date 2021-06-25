@@ -1,0 +1,85 @@
+@import "../../../assets/styles/global.scss";
+
+
+.edit-recipe{
+  padding: 15px 30px;
+  .img-wrap {
+    position: relative;
+    width: 60%;
+    max-width: 300px;
+    height: 200px;
+    overflow: hidden;
+    img{
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  form{
+    .submit{
+      margin-bottom: 50px;
+    }
+  }
+  .form-group{
+    margin-bottom: 25px;
+    position: relative;
+    .addButton{
+      margin:20px 0px;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding:10px 15px;
+      border-radius: 30px;
+    }
+    .close{
+      font-weight: 300;
+      font-size: 33px;
+      opacity: 1;
+      line-height: 15px;
+    }
+    .error-block{
+      right: 0px;
+      background: #000;
+      color: #fff;
+      top: 0px;
+      z-index: 1;
+      &::after{
+        border-color: #000 transparent transparent transparent;
+      }
+    }
+    label{
+      width: 100%;
+      display: block;
+      padding-bottom: 10px;
+    }
+    input , select, textarea{
+      width: 100%;
+      display: block;
+      height: 40px;
+      border: none;
+      box-shadow: 0px 1px 3px 1px #dcdcdc;
+      border-radius: 30px;
+      &:focus{
+        outline: none;
+        box-shadow: 0px 0px 3px 2px #d0d0d08c;
+      }
+    }
+    textarea{
+      height: auto!important;
+      padding:15px;
+      resize: none;
+    }
+  }
+}
+
+
+
+
+.addRecipe .header { 
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.addRecipe .header h3{ 
+  margin: auto;
+}

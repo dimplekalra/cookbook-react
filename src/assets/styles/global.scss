@@ -1,0 +1,24 @@
+/*****Variables******/
+
+$yellow: #f3b100;
+$black: #000;
+$white: #FFF;
+$lightWhite : #f5f5f5;
+$grey: #afafaf;
+$darkGrey: #636363;
+
+/*****Transition Time *****/
+$duration-time: all 0.3s linear;
+
+/*******Ripple Effect******/
+@mixin button-hover-effect{
+  outline: none;
+  background: #f3b100 radial-gradient(circle, transparent 1%, #deb138 1%) center/15000%;
+  color: $white;
+}
+@mixin button-active-effect{
+  background-color: $white;
+  background-size: 100%;
+  transition: background 0s;
+  outline: none!important;
+}
