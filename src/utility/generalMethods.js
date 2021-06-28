@@ -5,7 +5,7 @@ import auth from "../config/auth";
 export const userKey = auth.userKey;
 
 export const IsLoggedIn = () => {
-  return ReadLocalStorage(userKey) != undefined;
+  return ReadLocalStorage(userKey) !== undefined;
 };
 
 export const SetLocalStorage = (key, value) => {
@@ -16,7 +16,7 @@ export const RemoveFromLocalStorage = (key) => [localStorage.removeItem(key)];
 
 export const ReadLocalStorage = (key) => {
   let result = localStorage.getItem(key);
-  if (result == undefined || result == null) {
+  if (result === undefined || result === null) {
     return undefined;
   } else {
     return result;

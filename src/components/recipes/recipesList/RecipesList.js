@@ -130,6 +130,7 @@ class RecipesList extends Component {
               filteredRecipes.map((recipe, idx) => {
                 return (
                   <SingleRecipe
+                    key={idx}
                     {...recipe}
                     toggleFavourite={this.toggleFavourite}
                     key={idx}

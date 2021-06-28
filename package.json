@@ -20,6 +20,7 @@
     "bfj": "^7.0.2",
     "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "concurrently": "^6.2.0",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -81,7 +82,8 @@
   },
   "scripts": {
     "server": "json-server --watch api/db.json --port 8000",
-    "start": "node scripts/start.js",
+    "client": "node scripts/start.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -159,5 +161,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.16.3"
   }
 }
