@@ -27,7 +27,7 @@ const User = (props) => {
     } else {
       history.push("/auth/login");
     }
-  }, []);
+  }, [history]);
 
   const handleSignout = async (e) => {
     await props.signOut();
@@ -40,7 +40,7 @@ const User = (props) => {
       <header className="header">
         <div className="back-button">
           <span onClick={(e) => GoBack()}>
-            <img src="../../images/back.png" />
+            <img src="../../images/back.png" alt="go back" />
           </span>
         </div>
         <h3>Profile Details</h3>
@@ -49,7 +49,7 @@ const User = (props) => {
         {user && user.email ? (
           <div className="profileContainer">
             <div className="imgWrapper ">
-              <img src="../../images/profile.png" />
+              <img src="../../images/profile.png" alt="profile " />
             </div>
             <div className="profileContent">
               <h3>Account Details</h3>

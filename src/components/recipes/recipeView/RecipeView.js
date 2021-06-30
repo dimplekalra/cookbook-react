@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteRecipe } from "../../../redux/reducers/recipesReducer";
 import {
@@ -14,10 +14,6 @@ import "./Styles.scss";
 class RecipeView extends Component {
   history = this.props.history;
   params = this.props.match.params;
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.loadData();
@@ -38,7 +34,7 @@ class RecipeView extends Component {
         throw new Error("No Id is provided");
       }
     } catch (error) {
-      //console.log(error.message);
+      console.log(error.message);
     }
   };
 
@@ -48,8 +44,6 @@ class RecipeView extends Component {
 
   toggleFavourite = (id) => {
     const { currentRecipe } = this.props.recipes;
-
-    let index1;
 
     //first Method to find favourite
     if (currentRecipe) {
@@ -70,7 +64,7 @@ class RecipeView extends Component {
     let temp = [];
     for (let i = 0; i < votes; i++) {
       temp.push(
-        <span>
+        <span key={i}>
           <i className="fa fa-star"></i>
         </span>
       );
@@ -83,13 +77,13 @@ class RecipeView extends Component {
     try {
       let { recipe_id } = this.params;
       if (recipe_id) {
-        const result = await this.props.deleteRecipe(recipe_id);
+        await this.props.deleteRecipe(recipe_id);
         this.GoBack();
       } else {
         throw new Error("No Id is Provided");
       }
     } catch (error) {
-      //console.log("error is ", error.message);
+      console.log("error is ", error.message);
     }
   };
 
@@ -101,7 +95,7 @@ class RecipeView extends Component {
         <header className="header">
           <div className="back-button">
             <span onClick={(e) => this.GoBack()}>
-              <img src="../../images/back.png" />
+              <img src="../../images/back.png" alt="go back" />
             </span>
           </div>
         </header>
@@ -109,7 +103,7 @@ class RecipeView extends Component {
           <div className="item-content">
             <div className="image-sec">
               <div className="imagewrapper">
-                <img src={singleRecipe.imageUrl} />
+                <img src={singleRecipe.imageUrl} alt="Single Recipe" />
                 <span
                   className={`favourite-icon ${
                     singleRecipe.isFavourite ? "active" : ""
@@ -134,14 +128,14 @@ class RecipeView extends Component {
                     this.history.push(`/recipes/${singleRecipe.id}`)
                   }
                 >
-                  <img src="../../images/pencil.png" />
+                  <img src="../../images/pencil.png" alt="edit Recipe" />
                 </span>
 
                 <InplaceConfirm
                   Action={this.handleDelete}
                   HTMLComponent={
                     <span className="delete-item">
-                      <img src="../../images/delete.png" />
+                      <img src="../../images/delete.png" alt="Delete Recipe" />
                     </span>
                   }
                 />
@@ -169,7 +163,7 @@ class RecipeView extends Component {
               <ul>
                 {singleRecipe.ingredients && singleRecipe.ingredients.length
                   ? singleRecipe.ingredients.map((ing, index) => (
-                      <li key={index}>{ing}</li>
+                      <li key={"ingredients" + index}>{ing}</li>
                     ))
                   : null}
               </ul>
@@ -179,7 +173,7 @@ class RecipeView extends Component {
               <ul>
                 {singleRecipe.steps && singleRecipe.steps.length
                   ? singleRecipe.steps.map((step, index) => (
-                      <li key={index}>{step}</li>
+                      <li key={"steps" + index}>{step}</li>
                     ))
                   : null}
               </ul>
@@ -192,7 +186,6 @@ class RecipeView extends Component {
 }
 
 const mapStateToProps = (state) => {
-
   return {
     recipes: state.recipes,
 

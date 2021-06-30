@@ -10,19 +10,21 @@ const AddChip = (props) => {
   };
 
   return (
-    <form className="form-inline">
-      <input
-        type="text"
-        value={value}
-        name={name}
-        onChange={onChange}
-        className="form-control"
-        placeholder={placeholder}
-      />
-      <button onClick={handleClick} className="btn btn-default addButton">
-        + Add {name}
-      </button>
-    </form>
+    <>
+      <form className="form-inline">
+        <input
+          type="text"
+          value={value}
+          name={name}
+          onChange={onChange}
+          className="form-control"
+          placeholder={placeholder}
+        />
+        <button onClick={handleClick} className="btn btn-default addButton">
+          + Add {name}
+        </button>
+      </form>
+    </>
   );
 };
 

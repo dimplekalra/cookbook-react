@@ -2,20 +2,27 @@ import Noty from "noty";
 import Data from "../import-data/data";
 import auth from "../config/auth";
 
-export const userKey = auth.userKey;
+export const userKey = auth.userKey || "User-CookBook";
 
 export const IsLoggedIn = () => {
   return ReadLocalStorage(userKey) !== undefined;
 };
 
 export const SetLocalStorage = (key, value) => {
-  localStorage.setItem(key, value);
+  if (typeof window !== "undefined")
+    sessionStorage.setItem(key, JSON.stringify(value));
+  // localStorage.setItem(key, value);
 };
 
-export const RemoveFromLocalStorage = (key) => [localStorage.removeItem(key)];
+export const RemoveFromLocalStorage = (key) => {
+  // localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
+};
 
 export const ReadLocalStorage = (key) => {
-  let result = localStorage.getItem(key);
+  // let result = localStorage.getItem(key);
+  let result = sessionStorage.getItem(key);
+
   if (result === undefined || result === null) {
     return undefined;
   } else {
@@ -67,7 +74,7 @@ export const LoginUser = (cred) => {
         token,
       };
 
-      SetLocalStorage(userKey, JSON.stringify(cred));
+      SetLocalStorage(userKey, cred);
 
       return resolve({
         data: cred,
@@ -79,7 +86,9 @@ export const LoginUser = (cred) => {
 
 export const getCred = () => {
   let user = ReadLocalStorage(userKey);
+
   user = JSON.parse(user);
+
   return { email: user.email, token: user.token };
 };
 

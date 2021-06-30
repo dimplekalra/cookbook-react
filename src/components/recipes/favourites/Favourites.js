@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   fetchAllRecipes,
-  MakeFavourite,
   RemoveFavourite,
 } from "../../../redux/reducers/recipesReducer";
 import { IsLoggedIn } from "../../../utility/generalMethods";
@@ -79,7 +78,9 @@ class FavouriteRecipe extends Component {
     let filtered = this.state.filteredRecipes;
     //FIRST METHOD TO FIND FAVOURITES
     if (recipes && recipes.length) {
-      let Index = recipes.findIndex((val) => val.id == id);
+      let Index = recipes.findIndex(
+        (val) => val.id.toString() === id.toString()
+      );
 
       if (recipes[Index]) {
         const { isFavourite } = recipes[Index];
@@ -87,8 +88,12 @@ class FavouriteRecipe extends Component {
         if (isFavourite) {
           this.props.RemoveFavourite(recipes[Index], id);
 
-          recipes = recipes.filter((rec) => rec.id != id);
-          filtered = filtered.filter((fav) => fav.id != id);
+          recipes = recipes.filter(
+            (rec) => rec.id.toString() !== id.toString()
+          );
+          filtered = filtered.filter(
+            (fav) => fav.id.toString() !== id.toString()
+          );
 
           this.setState({
             filteredRecipes: [...filtered],
@@ -111,8 +116,8 @@ class FavouriteRecipe extends Component {
     return (
       <React.Fragment>
         <header className="row search-bar">
-          <div class="bannerImgWrapper">
-            <img src="../../images/login_banner.jpg" />
+          <div className="bannerImgWrapper">
+            <img src="../../images/login_banner.jpg" alt="login" />
           </div>
           <div className="form-group">
             <span className="fa fa-search form-control-feedback"></span>
@@ -132,17 +137,16 @@ class FavouriteRecipe extends Component {
             </span>
           </div>
           <ul>
-            {Api.isLoading ? <p class="loading-text">Loading...</p> : null}
-            {filteredRecipes.length == 0 && !Api.isLoading ? (
+            {Api.isLoading ? <p className="loading-text">Loading...</p> : null}
+            {filteredRecipes.length === 0 && !Api.isLoading ? (
               <p>No Favourite Recipe</p>
             ) : (
               filteredRecipes.map((recipe, idx) => {
                 return (
                   <SingleRecipe
-                    key={idx}
+                    key={"fav" + idx}
                     {...recipe}
                     toggleFavourite={this.toggleFavourite}
-                    key={idx}
                     onClick={this.handleRedirection}
                   />
                 );

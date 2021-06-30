@@ -8,7 +8,7 @@ const Content = () => {
     if (route.path === "/") {
       return (
         <Route
-          key={"route " + idx}
+          key={idx}
           exact
           path="/"
           render={() => {

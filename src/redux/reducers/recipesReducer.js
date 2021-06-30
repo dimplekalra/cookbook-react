@@ -56,7 +56,9 @@ const recipesReducer = (state = initialState, action) => {
       return newState;
     }
     case recipeAction.UPDATE_RECIPE: {
-      let elemIndex = newState.recipes.findIndex((val) => val.id == action.id);
+      let elemIndex = newState.recipes.findIndex(
+        (val) => val.id.toString() === action.id.toString()
+      );
       if (elemIndex) {
         let temp = [...newState.recipes];
         temp[elemIndex] = { ...payload };
@@ -74,14 +76,20 @@ const recipesReducer = (state = initialState, action) => {
     case recipeAction.DELETE_RECIPE: {
       newState = {
         ...newState,
-        recipes: [...newState.recipes.filter((val) => val.id != payload.id)],
+        recipes: [
+          ...newState.recipes.filter(
+            (val) => val.id.toString() !== payload.id.toString()
+          ),
+        ],
       };
 
       return newState;
     }
     case recipeAction.MAKE_FAVOURITE: {
       const id = payload.id;
-      let elemIndex = newState.recipes.findIndex((val) => val.id == id);
+      let elemIndex = newState.recipes.findIndex(
+        (val) => val.id.toString() === id.toString()
+      );
       if (elemIndex) {
         let temp = [...newState.recipes];
 
@@ -100,7 +108,9 @@ const recipesReducer = (state = initialState, action) => {
     }
     case recipeAction.REMOVE_FAVOURITE: {
       const id = payload.id;
-      let elemIndex = newState.recipes.findIndex((val) => val.id == id);
+      let elemIndex = newState.recipes.findIndex(
+        (val) => val.id.toString() === id.toString()
+      );
       if (elemIndex) {
         let temp = [...newState.recipes];
 
@@ -226,7 +236,7 @@ export const MakeFavourite = (recipe, id) => async (dispatch, getState) => {
       dispatch(recipeAction.makeFavourite(id));
     }
   } catch (error) {
-    //console.log(error.message);
+    console.log(error.message);
   }
 };
 
@@ -238,13 +248,11 @@ export const RemoveFavourite = (recipe, id) => async (dispatch, getState) => {
         isFavourite: false,
       };
       await dispatch(updateRecipe(recipe));
-      const res = dispatch(recipeAction.removeFavourite(id));
+      dispatch(recipeAction.removeFavourite(id));
     }
   } catch (error) {
     console.log(error.message);
   }
 };
-
-
 
 export default recipesReducer;

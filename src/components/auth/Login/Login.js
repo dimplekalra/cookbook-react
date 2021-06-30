@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { IsLoggedIn, LoginUser } from "../../../utility/generalMethods";
+import { IsLoggedIn } from "../../../utility/generalMethods";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import {
   loginSchema,
   validateInputs,
@@ -37,7 +36,7 @@ const Login = (props) => {
     if (IsLoggedIn()) {
       history.push("/recipes");
     }
-  }, []);
+  }, [history]);
 
   const showError = (_fieldName) => {
     let error = errors[_fieldName];
@@ -55,7 +54,7 @@ const Login = (props) => {
     const errorObj = await validateSchema(loginSchema, data);
 
     if (errorObj.isError) {
-      console.log("yes there is an error");
+      console.log("error", errorObj.errorMessage);
       return;
     }
 
@@ -69,15 +68,9 @@ const Login = (props) => {
         InProgress: true,
       });
 
-      console.log(data);
-
       let Login = await props.LoginUser(data);
 
-      console.log(Login);
-
       if (Login.data != null) {
-        console.log(Login);
-
         setStatus({
           ...status,
           InProgress: false,
@@ -137,7 +130,11 @@ const Login = (props) => {
 
   return (
     <div className="login-container">
-      <img src="../../images/login_banner.jpg" className="login-banner-img" />
+      <img
+        src="../../images/login_banner.jpg"
+        className="login-banner-img"
+        alt="login"
+      />
       <div className="login">
         <h3 className="text-center">
           Welcome to <span>Dephion CookBook</span>

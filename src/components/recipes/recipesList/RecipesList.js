@@ -44,7 +44,9 @@ class RecipesList extends Component {
 
     //FIRST METHOD TO FIND FAVOURITES
     if (recipes && recipes.length) {
-      let Index = recipes.findIndex((val) => val.id == id);
+      let Index = recipes.findIndex(
+        (val) => val.id.toString() === id.toString()
+      );
 
       if (recipes[Index]) {
         const { isFavourite } = recipes[Index];
@@ -87,15 +89,15 @@ class RecipesList extends Component {
   };
 
   render() {
-    const { recipes, Api } = this.props;
+    const { Api } = this.props;
 
     let { searchText, filteredRecipes } = this.state;
 
     return (
       <React.Fragment>
         <header className="row search-bar">
-          <div class="bannerImgWrapper">
-            <img src="../../images/login_banner.jpg" />
+          <div className="bannerImgWrapper">
+            <img src="../../images/login_banner.jpg" alt="login banner" />
           </div>
 
           <div className="form-group">
@@ -117,23 +119,25 @@ class RecipesList extends Component {
             <div className="float-right">
               <span className="add-recipe-button">
                 <button onClick={(e) => this.history.push("/recipes/add")}>
-                  <img src={`${process.env.PUBLIC_URL}/images/plus.png`} />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/plus.png`}
+                    alt="Add Recipe"
+                  />
                 </button>
               </span>
             </div>
           </div>
           <ul>
-            {Api.isLoading ? <p class="loading-text">Loading...</p> : null}
-            {filteredRecipes.length == 0 && !Api.isLoading ? (
+            {Api.isLoading ? <p className="loading-text">Loading...</p> : null}
+            {filteredRecipes.length === 0 && !Api.isLoading ? (
               <p>No Records Found</p>
             ) : (
               filteredRecipes.map((recipe, idx) => {
                 return (
                   <SingleRecipe
-                    key={idx}
+                    key={`${idx}-${recipe.id}`}
                     {...recipe}
                     toggleFavourite={this.toggleFavourite}
-                    key={idx}
                     onClick={this.handleRedirection}
                   />
                 );

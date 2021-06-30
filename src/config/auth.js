@@ -1,3 +1,5 @@
-export default {
+const obj = {
   userKey: "User-CookBook",
 };
+
+export default obj;

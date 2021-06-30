@@ -149,13 +149,13 @@
       "steps": [
         "need to sign in first",
         "need to connect one or more users",
-        "can create specific channels",
-        "can chat privately"
+        "can create specific channels"
       ],
       "serving": "6",
       "cooktime": "8",
       "description": "in this we can have a conversation ",
-      "id": 6
+      "id": 6,
+      "isFavourite": true
     }
   ]
 }

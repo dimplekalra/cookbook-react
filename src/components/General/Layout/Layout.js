@@ -12,7 +12,7 @@ const Layout = (props) => {
     if (!IsLoggedIn()) {
       history.push("/auth/login");
     }
-  }, []);
+  }, [history]);
 
   return (
     <React.Fragment>

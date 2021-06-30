@@ -1,7 +1,7 @@
 // import { getAllData, getSingleData } from "../../utility/generalMethods";
 import * as apiActions from "../actions/apiAction";
-import { GetAllData } from "../../utility/apiService";
-import { Recipes } from "../../utility/Endpoints";
+// import { GetAllData } from "../../utility/apiService";
+// import { Recipes } from "../../utility/Endpoints";
 
 let initialState = {
   isLoading: false,

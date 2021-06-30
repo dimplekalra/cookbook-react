@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 const SingleRecipe = ({
   name,
@@ -11,13 +10,11 @@ const SingleRecipe = ({
   description,
   onClick,
 }) => {
-  const history = useHistory();
-
   const renderVotes = (votes) => {
     let temp = [];
     for (let i = 0; i < votes; i++) {
       temp.push(
-        <span>
+        <span key={i}>
           <i className="fa fa-star"></i>
         </span>
       );
@@ -29,7 +26,7 @@ const SingleRecipe = ({
   return (
     <li className="item" onClick={(e) => onClick(id)}>
       <div className="imagewrapper">
-        <img src={imageUrl} />
+        <img src={imageUrl} alt="recipe " />
         <span
           className={`favourite-icon `}
           onClick={(e) => e.stopPropagation()}

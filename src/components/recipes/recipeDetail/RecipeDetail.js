@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import * as IngredientActions from "../../../redux/actions/ingredientAction";
 import * as prepStepsAction from "../../../redux/actions/prepStepsAction";
@@ -71,7 +71,6 @@ const RecipeDetail = (props) => {
       setState({
         ...state,
         [name]: [...state[name], chipInput],
-        chipInput: "",
       });
 
       if (name === "Ingredients") {
@@ -79,15 +78,18 @@ const RecipeDetail = (props) => {
       } else if (name === "prepSteps") {
         props.addPrepStep(chipInput);
       }
+
+      setChipInput("");
     }
   };
 
   const handleDeleteChip = (name, chip) => {
     setState({
       ...state,
-      [name]: state[name].filter((val) => val != chip),
-      chipInput: "",
+      [name]: state[name].filter((val) => val !== chip),
     });
+
+    setChipInput("");
 
     if (name === "Ingredients") {
       props.deleteIngredient(chip);
@@ -168,7 +170,7 @@ const RecipeDetail = (props) => {
   const handleImage = (e) => {
     const file = e.target.files[0];
 
-    if (file == undefined) {
+    if (!file) {
       return;
     }
 
@@ -189,7 +191,6 @@ const RecipeDetail = (props) => {
     };
 
     reader.readAsDataURL(file);
-
   };
 
   const saveData = async (data) => {
@@ -271,7 +272,7 @@ const RecipeDetail = (props) => {
       serving: state.Serving,
       cooktime: state.Cooktime,
       description: state.Description,
-    };    
+    };
     saveData(data);
     return;
   };
@@ -289,7 +290,7 @@ const RecipeDetail = (props) => {
       <header className="header">
         <div className="back-button">
           <span onClick={(e) => GoBack()}>
-            <img src="../../images/back.png" />
+            <img src="../../images/back.png" alt="go back" />
           </span>
         </div>
         <h3>{editMode ? "Edit Recipe" : "Add Recipe"}</h3>
@@ -306,13 +307,13 @@ const RecipeDetail = (props) => {
                       ? recipeImage.preview
                       : `${process.env.PUBLIC_URL}/images/dummy.png`
                   }
-                  alt=""
-                  for="recipeUpload"
+                  alt="recipe upload"
+                  htmlFor="recipeUpload"
                 />
 
                 <input
                   type="file"
-                  class="form-control-file"
+                  className="form-control-file"
                   style={{ display: "none" }}
                   id="recipeUpload"
                   onChange={handleImage}
@@ -342,7 +343,7 @@ const RecipeDetail = (props) => {
               {showError("Name")}
             </div>
             <div className="form-group edit-ingredients">
-              <label for="Ingredients">Add Ingredients</label>
+              <label htmlFor="Ingredients">Add Ingredients</label>
 
               <Chips
                 name="Ingredients"
@@ -377,7 +378,6 @@ const RecipeDetail = (props) => {
                 disabled={Status.InProgress}
                 className="form-control"
                 id="Serving"
-                defaultValue="1"
                 name="Serving"
                 value={state.Serving}
                 onChange={handleChange}
@@ -401,7 +401,6 @@ const RecipeDetail = (props) => {
                 className="form-control"
                 id="Votes"
                 disabled={Status.InProgress}
-                defaultValue={state.votes}
                 name="votes"
                 value={state.votes}
                 onChange={handleChange}
